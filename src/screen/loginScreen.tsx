@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, SnackbarCloseReason } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
@@ -11,12 +11,16 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { setName, setProfile } from '../redux/userDataSlice'
+import AlertSnackbar from '../components/alertSnackbar';
 
 const LoginScreen = () => {
 	const [user, setUser] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [showPassword, setShowPassword] = useState(false);
-	
+	const [snackbarOpen, setSnackbarOpen] = useState(false);
+	const [userError, setUserError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
+
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch()
@@ -33,34 +37,70 @@ const LoginScreen = () => {
 	};
 
 	const login = () => {
-		if(user == "admin" || user == "user") {
+		if(password == "") {
+			setPasswordError(true)
+		}
+		else if(user == "") {
+			setUserError(true)
+		}
+		else if(user == "admin" || user == "user") {
 			dispatch(setName(user))
 			dispatch(setProfile(user))
 			navigate('/')
 		}
 		else {
-			alert("Invalid user or password")
+			setSnackbarOpen(true)
 		}
 	}
 
+	const handleSnackbarClose = (_event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
+        if (reason !== 'clickaway') {
+            setSnackbarOpen(false);
+        }
+    };
+
 	return (
 		<div style={{background: 'lightGray', width: 400, height: 400, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', marginTop: "2%", borderRadius: 15, boxShadow: "3px 5px 10px 5px rgba(0, 0, 0, 0.35)",}}>
-			<PersonIcon style={{fontSize: 70, margin: '10px 0px'}}/>
+			<AlertSnackbar open={snackbarOpen} handleSnackbarClose={handleSnackbarClose} message={"Invalid user or password"}/>
+			
+			<PersonIcon style={{fontSize: 50, margin: '10px 0px'}}/>
 			<div style={{flex: 1}}>
-				<p>Login</p>
+				<h2>Login</h2>
 			</div>
 			<div style={{display: 'flex', flexDirection: 'column', flex: 3}}>
 				<TextField 
+					error={userError}
 					variant="outlined" 
 					label="User" 
 					style={{margin: '5px 0px'}} 
 					value={user} 
-					onChange={(e) => setUser(e.target.value)}
+					onChange={(e) => {
+						setUser(e.target.value.toLowerCase());
+						setUserError(false);
+					}}
+					sx={{
+						'& .MuiInputLabel-root.Mui-focused': {
+						  color: 'black',
+						},
+						'& .MuiOutlinedInput-root': {
+							'&.Mui-focused fieldset': {
+							  borderColor: 'black',
+							},
+						},
+					}}	
 				/>
 
 				<FormControl style={{margin: '10px 0px'}} variant="outlined">
-					<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+					<InputLabel 
+						error={passwordError}
+						htmlFor="outlined-adornment-password"
+						sx={{
+							'&.Mui-focused': {
+								color: 'black'
+							},
+						}}>Password</InputLabel>
 					<OutlinedInput
+						error={passwordError}
 						id="outlined-adornment-password"
 						type={showPassword ? 'text' : 'password'}
 						endAdornment={
@@ -78,7 +118,15 @@ const LoginScreen = () => {
 						}
 						label="Password"
 						value={password} 
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => {
+							setPassword(e.target.value);
+							setPasswordError(false);
+						}}
+						sx={{
+							'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+							  borderColor: 'black',
+							},
+						}}
 					/>
 				</FormControl>
 

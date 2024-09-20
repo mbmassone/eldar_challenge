@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/PersonOutlined';
 
 import { useSelector } from 'react-redux'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Post {
     userId: number;
@@ -16,6 +17,13 @@ interface Post {
 const post = ({post, handleShowComments, deletePost} : {post: Post, handleShowComments: any, deletePost: any}) => {
     const userData = useSelector((state: any) => state.userData)
     const [isAdmin, _setIsAdmin] = useState(userData.profile == "admin")
+
+    
+    const navigate = useNavigate();
+
+    const editPost = () => {
+        navigate('/editPost', {state: {post: post}})
+    }
 
     return (
         <div style={{width: 300, minWidth: 300, height: 350, minHeight:300, backgroundColor: 'lightGrey', margin: "20px 20px", padding: 10, borderRadius: 15, boxShadow: "3px 5px 10px 5px rgba(0, 0, 0, 0.35)", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
@@ -30,7 +38,7 @@ const post = ({post, handleShowComments, deletePost} : {post: Post, handleShowCo
                     <button style={{border: "none", background: "transparent", padding: 0}} onClick={() => handleShowComments(post.id)}><CommentIcon /></button>
                     {isAdmin &&
                         <>
-                            <button style={{border: "none", background: "transparent", padding: 0}} onClick={() => console.log("edit")}><EditIcon /></button>
+                            <button style={{border: "none", background: "transparent", padding: 0}} onClick={editPost}><EditIcon /></button>
                             <button style={{border: "none", background: "transparent", padding: 0}} onClick={() => deletePost(post.id)}><DeleteIcon /></button>
                         </>
                     }

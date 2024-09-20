@@ -1,7 +1,7 @@
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-const alertSnackbar = ({open, id, handleSnackbarClose}: {open: boolean, id?: number, handleSnackbarClose: any}) => {
+const alertSnackbar = ({open, handleSnackbarClose, message}: {open: boolean, handleSnackbarClose: any, message: string}) => {
   return (
     <Snackbar open={open} autoHideDuration={5000} onClose={handleSnackbarClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Alert
@@ -9,7 +9,7 @@ const alertSnackbar = ({open, id, handleSnackbarClose}: {open: boolean, id?: num
             severity="error"
             variant="filled"
         >
-            There is no post associated with user id {id}!
+            {message}
         </Alert>
     </Snackbar>
   )

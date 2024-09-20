@@ -13,6 +13,7 @@ import ErrorScreen from './screen/errorScreen.tsx';
 
 import store from './store'
 import { Provider } from 'react-redux'
+import EditPostScreen from './screen/editPostScreen.tsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeScreen />,
+    errorElement: <ErrorScreen />,
+  },
+  {
+    path: "/editPost",
+    element: <EditPostScreen />,
     errorElement: <ErrorScreen />,
   },
 ]);

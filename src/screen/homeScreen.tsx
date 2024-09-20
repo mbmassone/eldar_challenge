@@ -22,9 +22,6 @@ interface Post {
 const HomeScreen = () => {
     const userData = useSelector((state: any) => state.userData)
     const navigate = useNavigate();
-    if(userData.profile == "") {
-        navigate('/login')
-    }
 
     const [posts, setPosts] = useState<Post[]>([]);
     const [id, setId] = useState<number | undefined>(undefined);
@@ -37,6 +34,11 @@ const HomeScreen = () => {
     const [commentsId, setCommentsId] = useState<number | undefined>(undefined);
     
     useEffect(() => {
+        if(userData.profile == "") {
+            navigate('/login')
+            return;
+        }
+        
         setLoading(true)
         axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(res => {
@@ -115,7 +117,7 @@ const HomeScreen = () => {
 
             <Backdrop open={loading} />
 
-            <AlertSnackbar open={snackbarOpen} id={debouncedId} handleSnackbarClose={handleSnackbarClose} />
+            <AlertSnackbar open={snackbarOpen} handleSnackbarClose={handleSnackbarClose} message={`There is no post associated with user id ${debouncedId}!`}/>
 
             {/* <div style={{alignSelf: 'self-start'}}>homeScreen</div> */}
 
