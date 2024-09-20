@@ -13,8 +13,8 @@ import { useDispatch } from 'react-redux'
 import { setName, setProfile } from '../redux/userDataSlice'
 
 const LoginScreen = () => {
-	const [user, setUser] = useState<string>();
-	const [password, setPassword] = useState<string>();
+	const [user, setUser] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const [showPassword, setShowPassword] = useState(false);
 	
 	const navigate = useNavigate();
