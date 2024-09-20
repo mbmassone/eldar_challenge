@@ -16,8 +16,6 @@ interface Post {
     body: string;
 }
 
-
-
 const HomeScreen = () => {
 
     const [posts, setPosts] = useState<Post[]>([]);
@@ -46,12 +44,16 @@ const HomeScreen = () => {
         if(debouncedId != undefined) {
             axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${debouncedId}`)
             .then(res => {
-                setPostsId(res.data)
+                if(res.data.length == 0) {
+                    setSnackbarOpen(true);
+                }
+                else {
+                    setPostsId(res.data)
+                }
                 setLoading(false)
             })
             .catch(err => {
                 if(err.response.status == 404) {
-                    setSnackbarOpen(true);
                     setLoading(false)
                 }
                 else {
