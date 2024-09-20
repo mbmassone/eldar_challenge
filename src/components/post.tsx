@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import CommentIcon from '@mui/icons-material/CommentOutlined';
 import PersonIcon from '@mui/icons-material/PersonOutlined';
 
-import { useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useState } from 'react';
 
 interface Post {

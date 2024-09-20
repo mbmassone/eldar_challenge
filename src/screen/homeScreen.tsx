@@ -9,6 +9,9 @@ import AppBar from '../components/appBar';
 import Post from '../components/post';
 import CommentsDialog from '../components/commentsDialog';
 
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+
 interface Post {
     userId: number;
     id: number;
@@ -17,6 +20,11 @@ interface Post {
 }
 
 const HomeScreen = () => {
+    const userData = useSelector((state: any) => state.userData)
+    const navigate = useNavigate();
+    if(userData.profile == "") {
+        navigate('/login')
+    }
 
     const [posts, setPosts] = useState<Post[]>([]);
     const [id, setId] = useState<number | undefined>(undefined);
