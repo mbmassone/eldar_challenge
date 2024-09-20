@@ -11,7 +11,7 @@ import LoginScreen from './screen/loginScreen.tsx';
 import HomeScreen from './screen/homeScreen.tsx';
 import ErrorScreen from './screen/errorScreen.tsx';
 
-import store from './store'
+import store from './redux/store.ts'
 import { Provider } from 'react-redux'
 import EditPostScreen from './screen/editPostScreen.tsx';
 

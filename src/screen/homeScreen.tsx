@@ -119,10 +119,6 @@ const HomeScreen = () => {
 
             <AlertSnackbar open={snackbarOpen} handleSnackbarClose={handleSnackbarClose} message={`There is no post associated with user id ${debouncedId}!`}/>
 
-            {/* <div style={{alignSelf: 'self-start'}}>homeScreen</div> */}
-
-            {/* <NumberField id={id} setId={setId} /> */}
-
             {!loading &&
                 <>{(posts && (!id || id == undefined || postsId.length == 0)) ?
                     <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around"}}>

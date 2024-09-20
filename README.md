@@ -34,3 +34,9 @@ Admite cualquier contraseña salvo la cadena vacía "".
 
 ### Admin
 Admite cualquier contraseña salvo la cadena vacía "".
+
+## Mejoras pendientes 
+* Organiza los estilos con estructura de carpetas adecuada y reutilizable.
+* Mejora de comunicación con el usuario.
+* Mejorar diseño y colores.
+* 
