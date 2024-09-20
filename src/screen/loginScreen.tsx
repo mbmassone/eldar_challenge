@@ -10,7 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import { setName, setProfile } from '../features/userData/userDataSlice'
+import { setName, setProfile } from '../redux/userDataSlice'
 
 const LoginScreen = () => {
 	const [user, setUser] = useState<string>();

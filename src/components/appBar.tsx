@@ -58,7 +58,7 @@ const Search = styled('div')(({ theme }) => ({
 
   import { useNavigate } from 'react-router-dom';
   import { useDispatch } from 'react-redux'
-  import { setName, setProfile } from '../features/userData/userDataSlice'
+  import { setName, setProfile } from '../redux/userDataSlice'
 
 const appBar = ({id, setId} : {id?: number, setId: (id?: number) => void}) => {
 
