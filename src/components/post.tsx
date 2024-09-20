@@ -13,7 +13,7 @@ interface Post {
     body: string;
 }
 
-const post = ({post, handleShowComments} : {post: Post, handleShowComments: any}) => {
+const post = ({post, handleShowComments, deletePost} : {post: Post, handleShowComments: any, deletePost: any}) => {
     const userData = useSelector((state: any) => state.userData)
     const [isAdmin, _setIsAdmin] = useState(userData.profile == "admin")
 
@@ -31,7 +31,7 @@ const post = ({post, handleShowComments} : {post: Post, handleShowComments: any}
                     {isAdmin &&
                         <>
                             <button style={{border: "none", background: "transparent", padding: 0}} onClick={() => console.log("edit")}><EditIcon /></button>
-                            <button style={{border: "none", background: "transparent", padding: 0}} onClick={() => console.log("delete")}><DeleteIcon /></button>
+                            <button style={{border: "none", background: "transparent", padding: 0}} onClick={() => deletePost(post.id)}><DeleteIcon /></button>
                         </>
                     }
                 </div>

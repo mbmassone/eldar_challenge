@@ -91,6 +91,24 @@ const HomeScreen = () => {
         setShowComments(true);
     }
 
+    const deletePost = (id: number) => {
+        setLoading(true)
+        axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then(_res => {
+            setPosts((posts) => posts.filter(post => post.id != id));
+            setPostsId((postsId) => postsId.filter(post => post.id != id));
+            setLoading(false);
+        })
+        .catch(err => {
+            if(err.response.status == 404) {
+                setLoading(false)
+            }
+            else {
+                console.log(err)
+            }
+        })
+    }
+
     return (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', width: '100%'}}>
             <AppBar id={id} setId={setId} />
@@ -107,14 +125,14 @@ const HomeScreen = () => {
                 <>{(posts && (!id || id == undefined || postsId.length == 0)) ?
                     <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around"}}>
                         {posts.map((post: any) => (
-                            <Post key={post.id} post={post} handleShowComments={handleShowComments}/>
+                            <Post key={post.id} post={post} handleShowComments={handleShowComments} deletePost={deletePost}/>
                         ))}
                     </div>
                 :
                     <>{postsId.length > 0 &&
                         <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around"}}>
                             {postsId.map((post: any) => (
-                            <Post key={post.id} post={post} handleShowComments={handleShowComments}/>
+                            <Post key={post.id} post={post} handleShowComments={handleShowComments} deletePost={deletePost}/>
                         ))}
                         </div>
                     }</>
