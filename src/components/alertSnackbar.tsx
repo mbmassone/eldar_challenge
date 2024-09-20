@@ -9,7 +9,7 @@ const alertSnackbar = ({open, id, handleSnackbarClose}: {open: boolean, id?: num
             severity="error"
             variant="filled"
         >
-            There is no post associated with id {id}!
+            There is no post associated with user id {id}!
         </Alert>
     </Snackbar>
   )
