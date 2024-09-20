@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { useSelector } from 'react-redux'
@@ -56,11 +56,18 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
 
+  import { useNavigate } from 'react-router-dom';
+  import { useDispatch } from 'react-redux'
+  import { setName, setProfile } from '../features/userData/userDataSlice'
+
 const appBar = ({id, setId} : {id?: number, setId: (id?: number) => void}) => {
 
     const [_open, setOpen] = useState(false);
 
     const userData = useSelector((state: any) => state.userData)
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate();
 
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
@@ -68,6 +75,12 @@ const appBar = ({id, setId} : {id?: number, setId: (id?: number) => void}) => {
 
     const numFilter = (input: string) => {
         return input.replace(/\D/g, '');
+    }
+
+    const logout = () => {
+        dispatch(setName(""))
+        dispatch(setProfile(""))
+        navigate('/login')
     }
 
     return (
@@ -83,7 +96,7 @@ const appBar = ({id, setId} : {id?: number, setId: (id?: number) => void}) => {
                             sx={{ mr: 2 }}
                             onClick={toggleDrawer(true)}
                         >
-                            <MenuIcon />
+                            <button style={{border: "none", background: "transparent", color: 'white', padding: 0}} onClick={logout}><LogoutIcon /></button>
                         </IconButton>
                         <Typography
                             variant="h6"

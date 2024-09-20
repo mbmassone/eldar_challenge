@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setName, setProfile } from '../features/userData/userDataSlice'
 
 const LoginScreen = () => {
@@ -19,7 +19,6 @@ const LoginScreen = () => {
 	
 	const navigate = useNavigate();
 
-	let userData = useSelector((state: any) => state.userData)
 	const dispatch = useDispatch()
 
 	
@@ -32,6 +31,17 @@ const LoginScreen = () => {
 	const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 	};
+
+	const login = () => {
+		if(user == "admin" || user == "user") {
+			dispatch(setName(user))
+			dispatch(setProfile(user))
+			navigate('/')
+		}
+		else {
+			alert("Invalid user or password")
+		}
+	}
 
 	return (
 		<div style={{background: 'lightGray', width: 400, height: 400, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', marginTop: "2%", borderRadius: 15, boxShadow: "3px 5px 10px 5px rgba(0, 0, 0, 0.35)",}}>
@@ -72,7 +82,7 @@ const LoginScreen = () => {
 					/>
 				</FormControl>
 
-				<Button variant="contained" onClick={() =>  navigate('/')} style={{margin: '10px 0px', backgroundColor: 'black'}}>LOGIN</Button>
+				<Button variant="contained" onClick={login} style={{margin: '10px 0px', backgroundColor: 'black'}}>LOGIN</Button>
 			</div>
 		</div>
 	)
