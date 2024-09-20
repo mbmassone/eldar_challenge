@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -62,16 +60,10 @@ const Search = styled('div')(({ theme }) => ({
 
 const appBar = ({id, setId} : {id?: number, setId: (id?: number) => void}) => {
 
-    const [_open, setOpen] = useState(false);
-
     const userData = useSelector((state: any) => state.userData)
     const dispatch = useDispatch()
 
     const navigate = useNavigate();
-
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpen(newOpen);
-    };
 
     const numFilter = (input: string) => {
         return input.replace(/\D/g, '');
@@ -94,9 +86,9 @@ const appBar = ({id, setId} : {id?: number, setId: (id?: number) => void}) => {
                             color="inherit"
                             aria-label="open drawer"
                             sx={{ mr: 2 }}
-                            onClick={toggleDrawer(true)}
+                            onClick={logout}
                         >
-                            <button style={{border: "none", background: "transparent", color: 'white', padding: 0}} onClick={logout}><LogoutIcon /></button>
+                            <LogoutIcon />
                         </IconButton>
                         <Typography
                             variant="h6"
